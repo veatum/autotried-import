@@ -20,6 +20,9 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 
 /* Stable content sizing, including iOS and messenger webviews. */
+.brand-logo { display: block; width: 56px; height: 56px; object-fit: contain; border-radius: 7px; flex-shrink: 0; }
+.footer-brand .brand-logo { width: 44px; height: 44px; }
+@media (max-width: 767px) { .header .brand-logo { width: 46px; height: 46px; } }
 .faq-question[data-slot] { border: 0; }
 .faq-list [data-slot=accordion-item] { border: 0; border-bottom: 1px solid var(--border); }
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }

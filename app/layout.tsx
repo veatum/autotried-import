@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: 'AutoTried — автомобили и спецтехника под ключ',
   description: 'Автомобили из Кореи, ОАЭ, Европы и США. Подбор, проверка, доставка и сопровождение оформления. Запросите индивидуальный расчёт в AutoTried.',
   robots: { index: false, follow: false },
+  icons: { icon: '/autotried-logo.png', apple: '/autotried-logo.png' },
 };
 
 export default function RootLayout({
