@@ -48,6 +48,16 @@ function InquiryForm() {
 const manager = 'https://t.me/autovibe_manager';
 export default function Home() {
  const [menu, setMenu] = useState(false);
+ const [showMobileContact, setShowMobileContact] = useState(false);
+ useEffect(() => {
+   const visible = new Set<Element>();
+   const observer = new IntersectionObserver(entries => {
+     entries.forEach(entry => entry.isIntersecting ? visible.add(entry.target) : visible.delete(entry.target));
+     setShowMobileContact(visible.size === 0);
+   }, { threshold: 0 });
+   document.querySelectorAll('.hero, .inquiry-card, .final-cta').forEach(el => observer.observe(el));
+   return () => observer.disconnect();
+ }, []);
  return <>
  <div className="concept">ПРЕДВАРИТЕЛЬНАЯ КОНЦЕПЦИЯ САЙТА <span>AutoTried / 01</span></div>
  <header className="header">
@@ -80,6 +90,6 @@ export default function Home() {
  <section className="contact-proof"><div><div className="eyebrow light">05 / ДАВАЙТЕ ПОЗНАКОМИМСЯ</div><h2>Познакомьтесь<br/><em>с AutoTried<br/>до покупки.</em></h2></div><div className="contact-proof-right"><p>Задайте вопрос менеджеру, посмотрите публикации и отзывы. Начать можно с обычного разговора о том, какую машину вы ищете.</p><a className="contact-person" href={manager} target="_blank" rel="noreferrer"><span className="telegram-avatar"><Send size={25}/></span><span>Менеджер AutoTried<small>@autovibe_manager</small></span><ArrowUpRight/></a><div className="social-links"><a href="https://t.me/AutoTried_import" target="_blank" rel="noreferrer">Наш канал <ArrowUpRight size={18}/></a><a href="https://t.me/auto_r" target="_blank" rel="noreferrer">Отзывы в Telegram <ArrowUpRight size={18}/></a></div></div></section>
  <section className="section faq" id="questions"><div><div className="eyebrow">06 / ДО ПЕРВОГО СООБЩЕНИЯ</div><h2>Ответим<br/><em>на ваши вопросы.</em></h2><p className="lead">Покупка из другой страны — серьёзное решение. Разберём непонятное до начала сделки.</p></div><Accordion className="faq-list">{questions.map(([q,a],i)=><AccordionItem key={q} value={String(i)}><AccordionTrigger className="faq-question">{q}</AccordionTrigger><AccordionContent className="faq-answer">{a}</AccordionContent></AccordionItem>)}</Accordion></section>
  <section className="final-cta"><span className="cta-watermark" aria-hidden="true">AT↗</span><div className="eyebrow light">ВАШ МАРШРУТ НАЧИНАЕТСЯ С СООБЩЕНИЯ</div><h2>Давайте найдём<br/>ваш следующий <span>авто.</span></h2><a className="button white" href="#estimate">Начать с расчёта <ArrowUpRight size={24}/></a><a className="final-chat" href={manager} target="_blank" rel="noreferrer">Или просто написать менеджеру <ArrowUpRight size={17}/></a></section>
- </main><footer><a className="brand footer-brand" href="#">AUTOTRIED <ArrowUpRight/></a><p>Концепция сайта · Условия услуг требуют согласования</p><a href="https://t.me/AutoTried_import" target="_blank" rel="noreferrer">Наш Telegram <ArrowRight size={18}/></a></footer><div className="mobile-contact"><a href={manager} target="_blank" rel="noreferrer" aria-label="Написать в Telegram"><Send size={22}/></a><a href="#estimate">Рассчитать привоз <ArrowUpRight size={20}/></a></div>
+ </main><footer><a className="brand footer-brand" href="#">AUTOTRIED <ArrowUpRight/></a><p>Концепция сайта · Условия услуг требуют согласования</p><a href="https://t.me/AutoTried_import" target="_blank" rel="noreferrer">Наш Telegram <ArrowRight size={18}/></a></footer><div className={`mobile-contact${showMobileContact && !menu ? ' is-visible' : ''}`}><a href={manager} target="_blank" rel="noreferrer" aria-label="Написать в Telegram"><Send size={22}/></a><a href="#estimate">Рассчитать привоз <ArrowUpRight size={20}/></a></div>
  </>;
 }
